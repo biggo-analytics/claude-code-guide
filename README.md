@@ -8,7 +8,7 @@
 
 This repository contains a 9-chapter internal guide covering Claude Code from fundamentals to advanced team workflows. Written in Thai for teams working with **Go / React / PostgreSQL** stacks, though the concepts apply broadly.
 
-**Total:** ~10,900 lines across 9 chapters + 8 example files (~480 KB)
+**Total:** ~10,900 lines across 9 chapters + 8 example files + 8 prompt library files (~540 KB)
 
 ## Table of Contents
 
@@ -41,6 +41,22 @@ End-to-end narrative walkthrough of a mid-size E-commerce project, showing how e
 | [06_phase6_maintenance.md](examples/06_phase6_maintenance.md) | Maintenance | 5 scenarios: bug fix, new feature, refactor, onboarding, perf |
 | [07_prompt_catalog.md](examples/07_prompt_catalog.md) | — | All prompts (~80) organized by role AND by phase |
 
+### Prompt Library — Generic, Copy-Paste Ready
+
+Stack-agnostic prompt templates organized by role. Replace `[placeholders]` and use immediately.
+
+| # | File | Topic | Prompts | Best For |
+|---|------|-------|---------|----------|
+| 01 | [01_session_management.md](prompts/01_session_management.md) | Session Management — เริ่มงาน, ทำต่อ, ปิดงาน, ส่งต่อ | ~45 | ทุก Role |
+| 02 | [02_developer_workflows.md](prompts/02_developer_workflows.md) | Developer Workflows — Implement, Debug, Refactor, Test, Git | ~55 | Dev (FE/BE) |
+| 03 | [03_architecture_and_design.md](prompts/03_architecture_and_design.md) | Architecture & Design — สถาปัตยกรรม, ADR, Technical Debt | ~32 | SA / Tech Lead |
+| 04 | [04_project_and_business.md](prompts/04_project_and_business.md) | Project & Business — Spec, Planning, Reporting, Stakeholders | ~38 | PM / BA |
+| 05 | [05_quality_and_security.md](prompts/05_quality_and_security.md) | Quality & Security — Review, Testing, Security, Performance | ~26 | QA / Security |
+| 06 | [06_devops_and_infrastructure.md](prompts/06_devops_and_infrastructure.md) | DevOps & Infrastructure — CI/CD, Docker, Monitoring, Incidents | ~21 | DevOps / SRE |
+| 07 | [07_team_collaboration.md](prompts/07_team_collaboration.md) | Team Collaboration — Onboarding, Knowledge Mgmt, Cross-role | ~25 | ทุก Role |
+
+> See [prompts/README.md](prompts/README.md) for usage guide and placeholder conventions.
+
 ## Who Is This For?
 
 | Role | Key Chapters |
@@ -70,7 +86,7 @@ The principles and patterns are applicable to other stacks as well.
 3. **Looking for specific topics?** Use the table of contents above to jump to the relevant chapter.
 4. **Quick reference?** Go straight to the [Cheat Sheet](09_cheat_sheet.md).
 5. **Want a real-world walkthrough?** Read the [ShopFast Examples](examples/00_overview.md) — an end-to-end project walkthrough showing all roles and phases.
-6. **Just need prompts?** Copy from the [Prompt Catalog](examples/07_prompt_catalog.md) — 80+ prompts organized by role and phase.
+6. **Just need prompts?** Use the [Prompt Library](prompts/README.md) — 240+ generic prompts, or the [ShopFast Prompt Catalog](examples/07_prompt_catalog.md) for project-specific examples.
 
 ## Updating This Guide
 
