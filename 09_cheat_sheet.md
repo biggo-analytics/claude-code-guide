@@ -352,6 +352,96 @@ test [command] ล้มเหลวด้วย error: [error message]
 
 ---
 
+## 9.13 Troubleshooting Quick Fixes
+
+10 ปัญหาที่พบบ่อยพร้อมวิธีแก้แบบสั้น:
+
+| # | ปัญหา | วิธีแก้ |
+|---|--------|---------|
+| 1 | Claude สร้าง code ไม่ตรง convention | อัพเดท CLAUDE.md → ใส่ convention ที่ชัดเจน → ให้ Claude อ่าน CLAUDE.md ก่อนทำงาน |
+| 2 | Context window เต็ม / ตอบช้า | `/compact` สรุป context → ถ้ายังไม่พอให้เริ่ม session ใหม่ |
+| 3 | Claude แก้ไฟล์ผิด | `git diff` ตรวจสอบ → `git restore <file>` กู้คืน → ระบุไฟล์ให้ชัดในครั้งต่อไป |
+| 4 | Permission ถูก block | ตรวจ `.claude/settings.json` → เพิ่ม allow pattern ที่ต้องการ |
+| 5 | Claude hallucinate / ตอบไม่ตรง | เริ่ม session ใหม่ → ให้ context ที่ชัดเจนกว่าเดิม |
+| 6 | Test ที่ generate ไม่ครอบคลุม | ระบุ edge cases ที่ต้องการ: `"ต้องครอบคลุม: nil input, empty list, boundary values"` |
+| 7 | Code compile ไม่ผ่าน | ให้ Claude รัน `go build ./...` หรือ `npm run build` เองแล้วแก้ |
+| 8 | npm install / go mod ล้มเหลว | ตรวจ network + API key → ลอง `npm cache clean --force` หรือ `go clean -modcache` |
+| 9 | Claude ทำงานช้ามาก | สลับ model เป็น Sonnet/Haiku → ลด context ด้วย `/compact` |
+| 10 | DEVLOG/CLAUDE.md conflict | กำหนดเจ้าของแต่ละ section → review ก่อน merge → ใช้ git merge strategy |
+
+📌 รายละเอียดเพิ่มเติมที่ [บทที่ 10: Troubleshooting & FAQ](./10_troubleshooting_faq.md)
+
+---
+
+## 9.14 Session Management Cheat Sheet
+
+เมื่อไรควรทำอะไร:
+
+| สถานการณ์ | Action | คำสั่ง |
+|-----------|--------|--------|
+| Session ยาว, Claude เริ่มลืม context | Compact | `/compact` |
+| จบ task ใหญ่, จะเริ่ม task ใหม่ | Clear | `/clear` |
+| ต้องการ context จาก session เก่า | Continue | `claude -c` |
+| เลือก session เฉพาะจากรายการ | Resume | `claude --resume` |
+| เปลี่ยน task ที่ไม่เกี่ยวข้องกันเลย | Session ใหม่ | `claude` (เปิดใหม่) |
+| ทำงานหลาย feature พร้อมกัน | Worktree | `claude -w <branch>` |
+| รัน task อัตโนมัติ | Pipe mode | `claude -p "task" --max-turns 5` |
+
+### Decision Tree: จัดการ Session
+
+```
+Claude ตอบช้า / ลืม context?
+├─ ยังอยู่ task เดิม → /compact แล้วทำต่อ
+└─ เปลี่ยน task แล้ว
+   ├─ ต้องการ context เดิม → /clear แล้วให้ context ใหม่
+   └─ ไม่ต้องการ context → เปิด session ใหม่
+
+จะเริ่มงานวันใหม่?
+├─ ต่อจากเมื่อวาน → claude -c หรือ claude --resume
+└─ งานใหม่ → claude (session ใหม่) + อ่าน DEVLOG ก่อน
+```
+
+---
+
+## 9.15 Cost-Saving Tips
+
+5 เทคนิคประหยัด token ที่ใช้ได้ทันที:
+
+### 1. ใช้ CLAUDE.md แทนการอธิบายซ้ำ
+```
+# แทนที่จะพิมพ์ทุกครั้งว่า "ใช้ camelCase สำหรับ JSON, snake_case สำหรับ DB"
+# เขียนใน CLAUDE.md ครั้งเดียว → Claude จำได้ทุก session
+```
+
+### 2. ชี้ไฟล์เฉพาะ ไม่ต้องให้อ่านทั้งโปรเจกต์
+```
+# ❌ แพง: "อ่านทุกไฟล์แล้วสร้าง API endpoint"
+# ✅ ประหยัด: "ดูตัวอย่างใน internal/handler/product_handler.go แล้วสร้าง endpoint ใหม่ตาม pattern เดียวกัน"
+```
+
+### 3. /compact เมื่อ session ยาวเกิน 30 turns
+```
+/compact สรุปสิ่งที่ทำไปแล้ว เก็บ: ไฟล์ที่แก้, decisions, งานที่เหลือ
+```
+
+### 4. ใช้ Haiku สำหรับงาน routine
+```
+/model haiku
+# ใช้สำหรับ: commit messages, format code, simple questions, documentation
+/model sonnet
+# สลับกลับเมื่อต้องทำงานจริง
+```
+
+### 5. Batch งานที่เกี่ยวข้องกัน
+```
+# ❌ แพง: เปิด 5 sessions สำหรับ 5 endpoints ของ feature เดียวกัน
+# ✅ ประหยัด: ทำทั้ง 5 endpoints ใน session เดียว (Claude มี context อยู่แล้ว)
+```
+
+📌 รายละเอียดเพิ่มเติมที่ [บทที่ 11: Cost Optimization](./11_cost_optimization.md)
+
+---
+
 ## การอ้างอิงข้ามบท (Cross-references)
 
 | บท | หัวข้อ | ลิงก์ |
@@ -364,6 +454,8 @@ test [command] ล้มเหลวด้วย error: [error message]
 | บทที่ 6 | Architecture & Design — สถาปัตยกรรมและการออกแบบ | [06_architecture_design.md](./06_architecture_design.md) |
 | บทที่ 7 | QA, Security, and Review — การทดสอบและความปลอดภัย | [07_qa_security_review.md](./07_qa_security_review.md) |
 | บทที่ 8 | บทบาทและความรับผิดชอบของแต่ละตำแหน่ง | [08_roles_responsibilities.md](./08_roles_responsibilities.md) |
+| บทที่ 10 | Troubleshooting & FAQ | [10_troubleshooting_faq.md](./10_troubleshooting_faq.md) |
+| บทที่ 11 | การจัดการต้นทุนและประสิทธิภาพ | [11_cost_optimization.md](./11_cost_optimization.md) |
 
 ---
 

@@ -7,6 +7,8 @@
 
 - [Part 1: จัดตาม Role](#part-1-จัดตาม-role) — PM / BA / SA / Backend / Frontend / DBA-DevOps / QA
 - [Part 2: จัดตาม Phase](#part-2-จัดตาม-phase) — Phase 1–6 ตาราง quick-ref
+- [Part 3: Dev Workflow Prompts](#part-3-dev-workflow-prompts--คำสั่งที่-dev-ใช้ทุกวัน) — 21 prompts สำหรับทุกวัน
+- [Part 4: Advanced Patterns](#part-4-advanced-patterns--prompt-สำหรับงานเฉพาะทาง) — Architecture, Cost, Incident, API docs, Dependencies
 - [สถิติ](#สถิติ)
 
 ---
@@ -707,9 +709,9 @@ flow ของ [operation] เป็นยังไง ตั้งแต่ req
 
 ---
 
-## สถิติ
+## สถิติ (Project Prompts)
 
-**Total: 80 prompts** จาก 6 phases, 8 roles
+**Project Prompts: 80 prompts** จาก 6 phases, 8 roles
 
 | Role | จำนวน | % |
 |------|-------|---|
@@ -1006,6 +1008,170 @@ flow ของ [operation] เป็นยังไง ตั้งแต่ req
 | Phase 4: Frontend | 16 | Components, pages, QA |
 | Phase 5: Integration & CI/CD | 14 | Security, CI, Docker |
 | Phase 6: Maintenance | 25 | Bugs, features, refactoring, onboarding |
+
+---
+
+## Part 4: Advanced Patterns — Prompt สำหรับงานเฉพาะทาง
+
+> Prompt ในส่วนนี้ใช้สำหรับงานขั้นสูงที่ต้องการ expertise เฉพาะด้าน
+
+### 4.1 Architecture Comparison
+
+**A1.** เปรียบเทียบ framework
+```
+เปรียบเทียบ [Framework A] vs [Framework B] สำหรับโปรเจกต์ที่มี requirements:
+- [requirement 1]
+- [requirement 2]
+- [requirement 3]
+วิเคราะห์ด้าน: Performance, Ecosystem, Learning Curve, Community, Production Readiness
+สรุปเป็นตาราง พร้อม recommendation
+```
+> ตัวอย่าง: Fiber vs Gin, Next.js vs Remix, PostgreSQL vs MySQL
+
+**A2.** ประเมิน technology adoption
+```
+ทีมกำลังพิจารณาเปลี่ยนจาก [เทคโนโลยีเดิม] ไปใช้ [เทคโนโลยีใหม่]
+วิเคราะห์:
+1. Migration effort (ไฟล์/code ที่ต้องเปลี่ยน)
+2. Risk assessment
+3. Rollback plan
+4. Timeline ที่เหมาะสม
+5. เหตุผลที่ควร/ไม่ควรเปลี่ยน
+```
+
+### 4.2 Cost-Aware Prompts
+
+**A3.** สลับ model ตามงาน
+```
+/model haiku
+สร้าง commit message สำหรับ staged changes
+```
+```
+/model sonnet
+implement feature [X] ตาม spec
+```
+```
+/model opus
+review architecture ของระบบ [X] แล้วเสนอ improvements
+```
+> เลือก model ให้ตรงกับความซับซ้อนของงาน — ดู [บทที่ 11](../11_cost_optimization.md)
+
+**A4.** Batch operations เพื่อประหยัด token
+```
+ทำงานต่อไปนี้ทั้งหมดใน session เดียว:
+1. สร้าง GORM model สำหรับ [entity]
+2. สร้าง repository (CRUD)
+3. สร้าง service layer
+4. สร้าง handler + routes
+5. สร้าง unit tests
+อ้างอิง pattern จาก [existing file] สำหรับทุก layer
+```
+
+### 4.3 Incident Response
+
+**A5.** Triage production error
+```
+วิเคราะห์ error logs ต่อไปนี้:
+[paste error logs]
+
+สรุป:
+1. Root cause ที่น่าจะเป็นไปได้มากที่สุด
+2. ขอบเขตผลกระทบ (กี่ users, กี่ endpoints)
+3. Hotfix ที่ทำได้ทันที
+4. Long-term fix ที่ควรทำ
+```
+
+**A6.** เขียน post-mortem
+```
+เขียน post-mortem สำหรับ incident:
+- เกิดอะไรขึ้น: [description]
+- Timeline: [detection time → resolution time]
+- Impact: [users affected, duration]
+
+Format: Timeline, Root Cause, Impact, Resolution, Action Items, Lessons Learned
+```
+
+### 4.4 API Documentation Generation
+
+**A7.** สร้าง API docs จาก code
+```
+อ่าน handler files ใน internal/handler/
+แล้วสร้าง API documentation ในรูปแบบ markdown:
+- แต่ละ endpoint: method, path, description
+- Request body (JSON example)
+- Response body (JSON example + status codes)
+- Authentication requirements
+- Error responses
+```
+
+**A8.** สร้าง OpenAPI spec
+```
+อ่าน Go handlers และ DTOs แล้วสร้าง OpenAPI 3.0 spec (YAML):
+- paths จาก router definitions
+- schemas จาก Go structs/DTOs
+- security schemes จาก middleware
+- examples จาก test data
+```
+
+### 4.5 Dependency Audit
+
+**A9.** ตรวจสอบ dependencies
+```
+อ่าน go.mod (หรือ package.json) แล้วตรวจสอบ:
+1. Dependencies ที่ outdated (major version behind)
+2. Dependencies ที่ซ้ำซ้อน (ทำหน้าที่เดียวกัน)
+3. Dependencies ที่ไม่ได้ใช้แล้ว
+4. Dependencies ที่มี known vulnerabilities (ถ้าดูจากชื่อ/version ได้)
+สรุปเป็น action items เรียงตาม priority
+```
+
+**A10.** License compliance check
+```
+อ่าน go.mod (หรือ package.json) แล้วตรวจสอบ:
+1. List ทุก dependency พร้อม license type ที่รู้
+2. Dependencies ที่อาจมี license ไม่ compatible กับ commercial use
+3. Dependencies ที่ใช้ GPL/AGPL (ต้องระวัง)
+สรุปเป็นตาราง
+```
+
+### 4.6 Database Administration
+
+**A11.** วิเคราะห์ slow queries
+```
+วิเคราะห์ query performance ของ [repository/service]:
+1. หา queries ที่น่าจะช้า (full table scan, missing index, N+1)
+2. เสนอ index ที่ควรเพิ่ม
+3. เสนอ query optimization (rewrite, preload, pagination)
+4. ประเมิน impact ของแต่ละ improvement
+```
+
+**A12.** Database health check
+```
+review database schema ทั้งหมดแล้วตรวจ:
+1. Tables ที่ไม่มี primary key
+2. Foreign keys ที่ขาด index
+3. Columns ที่ควรเป็น NOT NULL แต่เป็น nullable
+4. Naming inconsistencies
+5. Missing created_at/updated_at
+สรุปเป็น migration script สำหรับแก้ไข
+```
+
+---
+
+## สถิติ (อัพเดท)
+
+**Total: 113 prompts** — 80 project prompts + 21 dev workflow prompts + 12 advanced patterns
+
+### Advanced Patterns (by Category)
+
+| หมวด | จำนวน |
+|------|-------|
+| Architecture Comparison (A1–A2) | 2 |
+| Cost-Aware (A3–A4) | 2 |
+| Incident Response (A5–A6) | 2 |
+| API Documentation (A7–A8) | 2 |
+| Dependency Audit (A9–A10) | 2 |
+| Database Administration (A11–A12) | 2 |
 
 ---
 

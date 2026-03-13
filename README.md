@@ -6,9 +6,9 @@
 
 ## Overview
 
-This repository contains a 9-chapter internal guide covering Claude Code from fundamentals to advanced team workflows. Written in Thai for teams working with **Go / React / PostgreSQL** stacks, though the concepts apply broadly.
+This repository contains a 12-chapter internal guide covering Claude Code from fundamentals to advanced team workflows. Written in Thai for teams working with **Go / React / PostgreSQL** stacks, though the concepts apply broadly.
 
-**Total:** ~10,900 lines across 9 chapters + 8 example files (~480 KB)
+**Total:** ~12,000+ lines across 12 chapters + 8 example files (~520+ KB)
 
 ## Table of Contents
 
@@ -25,6 +25,9 @@ This repository contains a 9-chapter internal guide covering Claude Code from fu
 | 07 | [07_qa_security_review.md](07_qa_security_review.md) | QA, Security & Review | Quality assurance, security auditing, code review workflows |
 | 08 | [08_roles_responsibilities.md](08_roles_responsibilities.md) | Roles & Responsibilities | How different roles (Dev, SA, BA, PM, QA, DevOps) can leverage Claude Code |
 | 09 | [09_cheat_sheet.md](09_cheat_sheet.md) | Cheat Sheet | Quick reference — commands, workflows, and common patterns |
+| 10 | [10_troubleshooting_faq.md](10_troubleshooting_faq.md) | Troubleshooting & FAQ | Common problems, solutions, decision trees, and FAQ |
+| 11 | [11_cost_optimization.md](11_cost_optimization.md) | Cost Optimization | Pricing model, model selection, session management, team budget planning |
+| 12 | [12_agency_agents_guide.md](12_agency_agents_guide.md) | The Agency — AI Agent Personalities | 100+ agent personalities, NEXUS framework, role-specific guides (Dev, PM, SA, QA) |
 
 ### Examples — ShopFast Project Walkthrough
 
@@ -45,11 +48,11 @@ End-to-end narrative walkthrough of a mid-size E-commerce project, showing how e
 
 | Role | Key Chapters |
 |------|-------------|
-| **Developers** | 01–04 (fundamentals → full-stack workflows) |
-| **Solution Architects** | 05–06 (spec-driven dev, architecture) |
+| **Developers** | 01–04 (fundamentals → full-stack workflows), 12 (Agency agents) |
+| **Solution Architects** | 05–06 (spec-driven dev, architecture), 12 (Agency agents) |
 | **Business Analysts** | 05, 08 (specs, roles) |
-| **Project Managers** | 08 (roles & responsibilities) |
-| **QA Engineers** | 07 (QA, security, review) |
+| **Project Managers** | 08 (roles & responsibilities), 12 (Agency agents) |
+| **QA Engineers** | 07 (QA, security, review), 12 (Agency agents) |
 | **DevOps Engineers** | 03–04 (advanced usage, CI/CD, Docker) |
 
 ## Tech Stack Context
@@ -71,6 +74,7 @@ The principles and patterns are applicable to other stacks as well.
 4. **Quick reference?** Go straight to the [Cheat Sheet](09_cheat_sheet.md).
 5. **Want a real-world walkthrough?** Read the [ShopFast Examples](examples/00_overview.md) — an end-to-end project walkthrough showing all roles and phases.
 6. **Just need prompts?** Copy from the [Prompt Catalog](examples/07_prompt_catalog.md) — 80+ prompts organized by role and phase.
+7. **Want AI agent specialists?** Read [Chapter 12](12_agency_agents_guide.md) for 100+ agent personalities with NEXUS multi-agent orchestration.
 
 ## Updating This Guide
 
