@@ -43,6 +43,7 @@ End-to-end narrative walkthrough of a mid-size E-commerce project, showing how e
 | [05_phase5_integration_cicd.md](examples/05_phase5_integration_cicd.md) | Integration & CI/CD | Integration tests, CI pipeline, production Docker |
 | [06_phase6_maintenance.md](examples/06_phase6_maintenance.md) | Maintenance | 5 scenarios: bug fix, new feature, refactor, onboarding, perf |
 | [07_prompt_catalog.md](examples/07_prompt_catalog.md) | — | All prompts (~80) organized by role AND by phase |
+| [08_figma_mcp_usecase.md](examples/08_figma_mcp_usecase.md) | Use Case | แปลง Web URL / Screenshot → Figma design ด้วย Figma MCP |
 
 ## Who Is This For?
 

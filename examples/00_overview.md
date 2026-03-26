@@ -17,6 +17,7 @@
 | [05_phase5_integration_cicd.md](05_phase5_integration_cicd.md) | Integration & CI/CD | Integration tests, CI pipeline, production Docker |
 | [06_phase6_maintenance.md](06_phase6_maintenance.md) | Maintenance | 5 scenarios: bug fix, new feature, refactor, onboarding, perf |
 | [07_prompt_catalog.md](07_prompt_catalog.md) | — | Prompt ทั้งหมด (~60+) จัดตาม role และ phase |
+| [08_figma_mcp_usecase.md](08_figma_mcp_usecase.md) | Use Case | แปลง Web URL / Screenshot → Figma design ด้วย MCP |
 
 ---
 
